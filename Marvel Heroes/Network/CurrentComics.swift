@@ -23,10 +23,15 @@ struct ResultComics: Codable {
     let title: String
     let description: String?
     //let series: Series
+    let urls: [URLs]
     let thumbnail: ThumbnailComics
     let creators, characters, stories, events: Characters
 }
 
+struct URLs: Codable {
+    let type: String
+    let url: String
+}
 // MARK: - Characters
 struct Characters: Codable {
     let available: Int
