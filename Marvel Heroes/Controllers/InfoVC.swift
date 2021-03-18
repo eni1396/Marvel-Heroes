@@ -22,6 +22,7 @@ class InfoVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        tapToHideKeyBoard()
     }
     
     private func setupUI() {
@@ -32,6 +33,7 @@ class InfoVC: UIViewController {
         searchField.placeholder = "Search for \(title?.lowercased() ?? "")"
         loadingIndicator.hidesWhenStopped = true
     }
+    
     private func refreshElements() {
         currentImage.image = nil
         currentName.text = nil
@@ -46,6 +48,11 @@ class InfoVC: UIViewController {
         requestModel.textAppear = currentAppearances
         requestModel.textDescr = currentDescription
         requestModel.urlView = currentURL
+    }
+    
+    func tapToHideKeyBoard() {
+        let tap = UITapGestureRecognizer(target: view, action: #selector(view.endEditing))
+        view.addGestureRecognizer(tap)
     }
 }
 
@@ -78,11 +85,6 @@ extension InfoVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.view.endEditing(true)
-    }
-    
-    func tapToHideKeyBoard() {
-        let tap = UITapGestureRecognizer(target: view, action: #selector(view.endEditing))
-        view.addGestureRecognizer(tap)
     }
 }
 
