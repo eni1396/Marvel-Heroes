@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE5392962603B774000C9B9E /* NetworkRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5392952603B774000C9B9E /* NetworkRequestModel.swift */; };
+		CE80EB9A2604C99000385960 /* CurrentCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE80EB992604C99000385960 /* CurrentCreator.swift */; };
 		CEE269C725EFC4A000309079 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE269C625EFC4A000309079 /* AppDelegate.swift */; };
 		CEE269C925EFC4A000309079 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE269C825EFC4A000309079 /* SceneDelegate.swift */; };
 		CEE269CE25EFC4A000309079 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEE269CC25EFC4A000309079 /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		CE5392952603B774000C9B9E /* NetworkRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestModel.swift; sourceTree = "<group>"; };
+		CE80EB992604C99000385960 /* CurrentCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentCreator.swift; sourceTree = "<group>"; };
 		CEE269C325EFC4A000309079 /* Marvel Heroes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Marvel Heroes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEE269C625EFC4A000309079 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEE269C825EFC4A000309079 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 			children = (
 				CEE269E525F00D5B00309079 /* NetworkManager.swift */,
 				CE5392952603B774000C9B9E /* NetworkRequestModel.swift */,
+				CE80EB992604C99000385960 /* CurrentCreator.swift */,
 				CEE26A0E25F3B9B700309079 /* CurrentComics.swift */,
 				CEE269F025F0384900309079 /* CurrentHero.swift */,
 			);
@@ -193,6 +196,7 @@
 				CEE26A0225F17A4800309079 /* InfoVC.swift in Sources */,
 				CEE269F125F0384900309079 /* CurrentHero.swift in Sources */,
 				CEE269D125EFC4A000309079 /* Marvel_Heroes.xcdatamodeld in Sources */,
+				CE80EB9A2604C99000385960 /* CurrentCreator.swift in Sources */,
 				CEE269C925EFC4A000309079 /* SceneDelegate.swift in Sources */,
 				CEE269E325EFF60A00309079 /* CustomHeader.swift in Sources */,
 				CEE269ED25F0348800309079 /* Constants.swift in Sources */,

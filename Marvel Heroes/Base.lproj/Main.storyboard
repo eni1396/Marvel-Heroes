@@ -80,8 +80,9 @@
                                     </textView>
                                 </subviews>
                             </stackView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="9nx-pf-4Sa">
-                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="9nx-pf-4Sa">
+                                <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
+                                <color key="color" systemColor="systemPurpleColor"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="M37-Er-4Ve"/>
@@ -109,7 +110,7 @@
                         <outlet property="currentImage" destination="tfk-Vn-vY0" id="570-z2-Fzw"/>
                         <outlet property="currentName" destination="om2-mL-ZDS" id="0Bd-eg-wbm"/>
                         <outlet property="currentURL" destination="SqO-xI-SVY" id="Zgf-5F-0bc"/>
-                        <outlet property="loadingIndicator" destination="9nx-pf-4Sa" id="Jhn-5N-pPh"/>
+                        <outlet property="loadingIndicator" destination="9nx-pf-4Sa" id="Lod-8W-gh5"/>
                         <outlet property="searchField" destination="Lip-Mi-TNI" id="WRs-NF-euT"/>
                     </connections>
                 </viewController>
@@ -211,6 +212,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

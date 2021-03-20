@@ -62,13 +62,7 @@ struct Stories: Codable {
 struct StoriesItem: Codable {
     let resourceURI: String
     let name: String
-    //let type: TypeEnum
 }
-
-//enum TypeEnum: String, Codable {
-//    case cover = "cover"
-//    case interiorStory = "interiorStory"
-//}
 
 // MARK: - Thumbnail
 struct Thumbnail: Codable {

@@ -28,8 +28,8 @@ class InfoVC: UIViewController {
     private func setupUI() {
         currentDescription.lineBreakMode = .byTruncatingTail
         currentAppearances.lineBreakMode = .byTruncatingTail
-        currentDescription.numberOfLines = 9
-        currentAppearances.numberOfLines = 4
+        currentDescription.numberOfLines = 0
+        currentAppearances.numberOfLines = 0
         searchField.placeholder = "Search for \(title?.lowercased() ?? "")"
         loadingIndicator.hidesWhenStopped = true
     }
@@ -48,6 +48,7 @@ class InfoVC: UIViewController {
         requestModel.textAppear = currentAppearances
         requestModel.textDescr = currentDescription
         requestModel.urlView = currentURL
+        requestModel.activityIndicator = loadingIndicator
     }
     
     func tapToHideKeyBoard() {
@@ -57,21 +58,20 @@ class InfoVC: UIViewController {
 }
 
 extension InfoVC: UISearchBarDelegate {
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchField.text = searchBar.text
         equalParameters()
-        self.loadingIndicator.startAnimating()
-        //MARK:- Characters Setup
         if navigationItem.title == cellNames[0] {
             requestModel.fetchCharacters(searchText: searchText)
-            self.loadingIndicator.stopAnimating()
-            //MARK:- Comics Setup
         } else if navigationItem.title == cellNames[1] {
             requestModel.fetchComics(searchText: searchText)
-            self.loadingIndicator.stopAnimating()
+        } else if navigationItem.title == cellNames[2] {
+            requestModel.fetchCreators(searchText: searchText)
         }
         
         if searchBar.text?.isEmpty == true {
+            refreshElements()
             loadingIndicator.stopAnimating()
         }
     }
@@ -89,6 +89,7 @@ extension InfoVC: UISearchBarDelegate {
 }
 
 extension InfoVC: UITextViewDelegate {
+    
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         if URL.absoluteString == requestModel.characters.first?.comics.items[1].name || URL.absoluteString == requestModel.comics.first?.events.collectionURI {
             UIApplication.shared.open(URL)

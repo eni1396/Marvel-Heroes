@@ -22,7 +22,6 @@ struct DataComics: Codable {
 struct ResultComics: Codable {
     let title: String
     let description: String?
-    //let series: Series
     let urls: [URLs]
     let thumbnail: ThumbnailComics
     let creators, characters, stories, events: Characters
@@ -46,17 +45,6 @@ struct Item: Codable {
     let name: String
     //let type: String
 }
-
-// MARK: - Series
-//struct Series: Codable {
-//    let resourceURI: String
-//    let name: Title
-//}
-
-//enum Title: String, Codable {
-//    case marvelPreviews2017 = "Marvel Previews (2017)"
-//    case marvelPreviews2017Present = "Marvel Previews (2017 - Present)"
-//}
 
 // MARK: - Thumbnail
 struct ThumbnailComics: Codable {

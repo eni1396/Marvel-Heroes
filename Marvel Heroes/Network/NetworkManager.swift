@@ -8,15 +8,10 @@
 import Foundation
 
 class NetworkManager {
-//    enum RequestType {
-//        case characters(name: String)
-//        case charactersAll
-//        case comics(name: String)
-//    }
+    let ts = String(Date().toMillis())
     
     func fetchGenericData<T: Codable>(stringURL: String, completion: @escaping (T) -> ()) {
         guard let url = URL(string: stringURL) else { return }
-        print(url)
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let data = data else { return }
             do {
