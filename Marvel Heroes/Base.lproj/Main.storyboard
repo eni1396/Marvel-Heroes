@@ -115,6 +115,7 @@
                         <outlet property="currentURL" destination="SqO-xI-SVY" id="Zgf-5F-0bc"/>
                         <outlet property="loadingIndicator" destination="9nx-pf-4Sa" id="Lod-8W-gh5"/>
                         <outlet property="searchField" destination="Lip-Mi-TNI" id="WRs-NF-euT"/>
+                        <outlet property="shortInfoLabel" destination="g6C-72-Thg" id="a9g-Pu-Rus"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s8y-I3-Heg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

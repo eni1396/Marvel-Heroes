@@ -21,6 +21,7 @@ class InfoVC: UIViewController {
     @IBOutlet weak var currentDescription: UILabel!
     @IBOutlet weak var currentAppearances: UILabel!
     @IBOutlet weak var currentURL: UITextView!
+    @IBOutlet weak var shortInfoLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,7 @@ class InfoVC: UIViewController {
         currentAppearances.numberOfLines = 0
         searchField.placeholder = "Search for \(title?.lowercased() ?? "")"
         loadingIndicator.hidesWhenStopped = true
+        shortInfoLabel.isHidden = true
     }
     
     private func refreshElements() {
@@ -74,6 +76,7 @@ extension InfoVC: UISearchBarDelegate {
                             self.currentURL.attributedText = attr
                             self.currentURL.isUserInteractionEnabled = true
                             self.currentURL.isEditable = false
+                            self.shortInfoLabel.isHidden = false
                             
                             if !res.resultDescription.isEmpty {
                                 self.currentDescription.text = "Bio: \(res.resultDescription)"
@@ -102,6 +105,7 @@ extension InfoVC: UISearchBarDelegate {
                         self.currentURL.isUserInteractionEnabled = true
                         self.currentURL.isEditable = false
                         self.currentDescription.text = "Bio: \(self.comicsResult.first?.description ?? "Bio: No Bio Provided")"
+                        self.shortInfoLabel.isHidden = false
                         self.loadingIndicator.stopAnimating()
                     }
                 }
@@ -115,14 +119,16 @@ extension InfoVC: UISearchBarDelegate {
                     DispatchQueue.main.async {
                         self.currentImage.image = UIImage(data: imageData)
                         self.currentName.text = self.creatorsResult.first?.fullName
+                        self.shortInfoLabel.isHidden = false
+                        self.loadingIndicator.stopAnimating()
                     }
-                    self.loadingIndicator.stopAnimating()
                 }
             }
         }
         
         if searchBar.text?.isEmpty == true {
             refreshElements()
+            shortInfoLabel.isHidden = true
             loadingIndicator.stopAnimating()
         }
     }
@@ -130,6 +136,7 @@ extension InfoVC: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text? = ""
         refreshElements()
+        shortInfoLabel.isHidden = true
         loadingIndicator.stopAnimating()
         searchBar.resignFirstResponder()
     }
