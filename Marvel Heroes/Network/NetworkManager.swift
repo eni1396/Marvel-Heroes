@@ -8,10 +8,23 @@
 import Foundation
 
 class NetworkManager {
-    let ts = String(Date().toMillis())
+    private var urlString = ""
     
-    func fetchGenericData<T: Codable>(stringURL: String, completion: @escaping (T) -> ()) {
-        guard let url = URL(string: stringURL) else { return }
+    enum RequestType {
+        case characters, comics, creators
+    }
+    
+    func fetchGenericData<T: Codable>(from type: RequestType, searchText: String, completion: @escaping (T) -> ()) {
+        switch type {
+        case .characters:
+            urlString = "https://gateway.marvel.com:443/v1/public/characters?name=\(searchText)&ts=\(ts)&apikey=\(publicKey)&hash=\(hashVal)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        case .comics:
+            urlString = "https://gateway.marvel.com:443/v1/public/comics?title=\(searchText)&ts=\(ts)&apikey=\(publicKey)&hash=\(hashVal)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        case .creators:
+            let splitName = searchText.split(separator: " ")
+            urlString = "https://gateway.marvel.com:443/v1/public/creators?firstName=\(splitName.first ?? "")&lastName=\(splitName.last ?? "")&ts=\(ts)&apikey=\(publicKey)&hash=\(hashVal)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        }
+        guard let url = URL(string: urlString) else { return }
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let data = data else { return }
             do {
