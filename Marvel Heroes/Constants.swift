@@ -21,3 +21,4 @@ let ts = String(Date().toMillis())
 let hashVal = md5(string: ts + privateKey + publicKey)
 let segueID = "to InfoVC"
 let cellNames = ["Characters", "Comics", "Creators"]
+let moreInfoAtWiki = "More info at Marvel Wiki"

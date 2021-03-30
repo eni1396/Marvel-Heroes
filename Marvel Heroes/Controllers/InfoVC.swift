@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class InfoVC: UIViewController {
     
@@ -37,6 +38,10 @@ class InfoVC: UIViewController {
         searchField.placeholder = "Search for \(title?.lowercased() ?? "")"
         loadingIndicator.hidesWhenStopped = true
         shortInfoLabel.isHidden = true
+        currentURL.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        currentURL.tintColor = .systemPurple
+        currentURL.delegate = self
+        searchField.delegate = self
     }
     
     private func refreshElements() {
@@ -70,9 +75,10 @@ extension InfoVC: UISearchBarDelegate {
                             self.currentImage.image = UIImage(data: imageData)
                             self.currentName.text = res.name
                             self.currentAppearances.text = "Appeared in: \(res.comics.items.randomElement()?.name ?? "")"
-                            let url = URL(string: res.urls[1].url)!
-                            let attr = NSMutableAttributedString(string: "More info at Marvel Wiki")
-                            attr.setAttributes([.link: url], range: NSMakeRange(0, attr.length))
+                            let attrStringURL = res.urls[1].url
+                            guard let url1 = URL(string: attrStringURL) else { return }
+                            let attr = NSMutableAttributedString(string: moreInfoAtWiki)
+                            attr.setAttributes([.link: url1], range: NSMakeRange(0, attr.length))
                             self.currentURL.attributedText = attr
                             self.currentURL.isUserInteractionEnabled = true
                             self.currentURL.isEditable = false
@@ -81,7 +87,7 @@ extension InfoVC: UISearchBarDelegate {
                             if !res.resultDescription.isEmpty {
                                 self.currentDescription.text = "Bio: \(res.resultDescription)"
                             } else {
-                                self.currentDescription.text = "Bio: No Bio Provided"
+                                self.currentDescription.text = "Bio: Not available"
                             }
                             self.loadingIndicator.stopAnimating()
                         }
@@ -97,14 +103,13 @@ extension InfoVC: UISearchBarDelegate {
                     DispatchQueue.main.async {
                         self.currentImage.image = UIImage(data: imageData)
                         self.currentName.text = self.comicsResult.first?.title
-                        //self.currentAppearances.text = self.comicsArray.first?.
-                        guard let url = URL(string: self.comicsResult.first?.urls.first?.url ?? "") else { return }
-                        let attr = NSMutableAttributedString(string: "More info at Marvel Wiki")
-                        attr.setAttributes([.link: url], range: NSMakeRange(0, attr.length))
-                        self.currentURL.attributedText = attr
+                        guard let url2 = self.comicsResult.first?.urls.first?.url else { return }
+                        let attributed = NSMutableAttributedString(string: moreInfoAtWiki)
+                        attributed.setAttributes([.link: url2], range: NSMakeRange(0, attributed.length))
+                        self.currentURL.attributedText = attributed
                         self.currentURL.isUserInteractionEnabled = true
                         self.currentURL.isEditable = false
-                        self.currentDescription.text = "Bio: \(self.comicsResult.first?.description ?? "Bio: No Bio Provided")"
+                        self.currentDescription.text = "Bio: \(self.comicsResult.first?.description ?? "Bio: No description provided")"
                         self.shortInfoLabel.isHidden = false
                         self.loadingIndicator.stopAnimating()
                     }
@@ -134,7 +139,7 @@ extension InfoVC: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text? = ""
+        searchBar.text? = String()
         refreshElements()
         shortInfoLabel.isHidden = true
         loadingIndicator.stopAnimating()
@@ -149,12 +154,9 @@ extension InfoVC: UISearchBarDelegate {
 extension InfoVC: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        if URL.absoluteString == charactersResult.first?.comics.items[1].name || URL.absoluteString == comicsResult.first?.events.collectionURI {
-            UIApplication.shared.open(URL)
-        }
+        let vc = SFSafariViewController(url: URL)
+        present(vc, animated: true)
         return false
     }
 }
 
-// TODO:
-// как не делать запрос по одной букве
