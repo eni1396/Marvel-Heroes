@@ -9,11 +9,8 @@ import UIKit
 import SafariServices
 
 class InfoVC: UIViewController {
-    
-    private let networkManager = NetworkManager()
-    private var charactersResult = [Result]()
-    private var comicsResult = [ResultComics]()
-    private var creatorsResult = [ResultCreator]()
+    ///модель для VC
+    private var requiredInfo = RequiredInfo()
     
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var searchField: UISearchBar!
@@ -50,6 +47,7 @@ class InfoVC: UIViewController {
         currentDescription.text = nil
         currentAppearances.text = nil
         currentURL.text = nil
+        requiredInfo = RequiredInfo()
     }
     
     
@@ -60,86 +58,75 @@ class InfoVC: UIViewController {
 }
 
 extension InfoVC: UISearchBarDelegate {
-    
+    ///взаимодействие с поисковой строкой
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchField.text = searchBar.text
+        self.requiredInfo.searchText = searchText
         loadingIndicator.startAnimating()
+        
         if navigationItem.title == cellNames[0] {
-            networkManager.fetchGenericData(from: .characters, searchText: searchText) { (currentHero: CurrentHero) in
-                self.charactersResult = currentHero.data.results
-                DispatchQueue.global().async {
-                    for res in self.charactersResult {
-                        let stringURL = "\(res.thumbnail.path).\(res.thumbnail.thumbnailExtension)"
-                        guard let url = URL(string: stringURL), let imageData = try? Data(contentsOf: url) else { return }
-                        DispatchQueue.main.async {
-                            self.currentImage.image = UIImage(data: imageData)
-                            self.currentName.text = res.name
-                            self.currentAppearances.text = "Appeared in: \(res.comics.items.randomElement()?.name ?? "")"
-                            let attrStringURL = res.urls[1].url
-                            guard let url1 = URL(string: attrStringURL) else { return }
-                            let attr = NSMutableAttributedString(string: moreInfoAtWiki)
-                            attr.setAttributes([.link: url1], range: NSMakeRange(0, attr.length))
-                            self.currentURL.attributedText = attr
-                            self.currentURL.isUserInteractionEnabled = true
-                            self.currentURL.isEditable = false
-                            self.shortInfoLabel.isHidden = false
-                            
-                            if !res.resultDescription.isEmpty {
-                                self.currentDescription.text = "Bio: \(res.resultDescription)"
-                            } else {
-                                self.currentDescription.text = "Bio: Not available"
-                            }
-                            self.loadingIndicator.stopAnimating()
-                        }
-                    }
-                }
-            }
-        } else if navigationItem.title == cellNames[1] {
-            networkManager.fetchGenericData(from: .comics, searchText: searchText) { (currentComics: CurrentComics) in
-                self.comicsResult = currentComics.data.results
-                DispatchQueue.global().async {
-                    let urlString = "\(self.comicsResult.first?.thumbnail.path ?? "").\(self.comicsResult.first?.thumbnail.thumbnailExtension ?? "")"
-                    guard let url = URL(string: urlString), let imageData = try? Data(contentsOf: url) else { return }
+            DispatchQueue.global().async {
+                self.requiredInfo.getCharacters {
+                    let safeData = self.requiredInfo.requiredImageData
                     DispatchQueue.main.async {
-                        self.currentImage.image = UIImage(data: imageData)
-                        self.currentName.text = self.comicsResult.first?.title
-                        guard let url2 = self.comicsResult.first?.urls.first?.url else { return }
-                        let attributed = NSMutableAttributedString(string: moreInfoAtWiki)
-                        attributed.setAttributes([.link: url2], range: NSMakeRange(0, attributed.length))
-                        self.currentURL.attributedText = attributed
+                        self.currentImage.image = UIImage(data: safeData ?? Data())
+                        self.currentName.text = self.requiredInfo.requiredName
+                        self.currentDescription.text = self.requiredInfo.requiredDescription
+                        self.currentAppearances.text = self.requiredInfo.requiredAppearances
+                        self.currentURL.attributedText = self.requiredInfo.requiredAttibutedString
                         self.currentURL.isUserInteractionEnabled = true
                         self.currentURL.isEditable = false
-                        self.currentDescription.text = "Bio: \(self.comicsResult.first?.description ?? "Bio: No description provided")"
-                        self.shortInfoLabel.isHidden = false
+                        if self.currentImage.image != nil {
+                            self.shortInfoLabel.isHidden = false
+                        }
                         self.loadingIndicator.stopAnimating()
                     }
                 }
             }
-        } else if navigationItem.title == cellNames[2] {
-            networkManager.fetchGenericData(from: .creators, searchText: searchText) { (currentCreator: CurrentCreator) in
-                self.creatorsResult = currentCreator.data.results
-                DispatchQueue.global().async {
-                    let urlString = "\(self.creatorsResult.first?.thumbnail.path ?? "").\(self.creatorsResult.first?.thumbnail.thumbnailExtension ?? "")"
-                    guard let url = URL(string: urlString), let imageData = try? Data(contentsOf: url) else { return }
+            
+        } else if navigationItem.title == cellNames[1] {
+            DispatchQueue.global().async {
+                self.requiredInfo.getComics {
+                    let safeData = self.requiredInfo.requiredImageData
                     DispatchQueue.main.async {
-                        self.currentImage.image = UIImage(data: imageData)
-                        self.currentName.text = self.creatorsResult.first?.fullName
-                        self.shortInfoLabel.isHidden = false
+                        self.currentImage.image = UIImage(data: safeData ?? Data())
+                        self.currentName.text = self.requiredInfo.requiredName
+                        self.currentDescription.text = self.requiredInfo.requiredDescription
+                        self.currentURL.attributedText = self.requiredInfo.requiredAttibutedString
+                        self.currentURL.isUserInteractionEnabled = true
+                        self.currentURL.isEditable = false
+                        if self.currentImage.image != nil {
+                            self.shortInfoLabel.isHidden = false
+                        }
+                        self.loadingIndicator.stopAnimating()
+                    }
+                }
+            }
+            
+        } else if navigationItem.title == cellNames[2] {
+            DispatchQueue.global().async {
+                self.requiredInfo.getCreators {
+                    let safeData = self.requiredInfo.requiredImageData
+                    DispatchQueue.main.async {
+                        self.currentImage.image = UIImage(data: safeData ?? Data())
+                        self.currentName.text = self.requiredInfo.requiredName
+                        if self.currentImage.image != nil {
+                            self.shortInfoLabel.isHidden = false
+                        }
                         self.loadingIndicator.stopAnimating()
                     }
                 }
             }
         }
-        
-        if searchBar.text?.isEmpty == true {
+        /// очищение интерфейса при полном удалении текста
+        if searchBar.text == "" {
             refreshElements()
             shortInfoLabel.isHidden = true
             loadingIndicator.stopAnimating()
         }
     }
-    
+    /// очищение интерфейса при нажатии кнопки Cancel
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text? = String()
+        searchBar.text? = ""
         refreshElements()
         shortInfoLabel.isHidden = true
         loadingIndicator.stopAnimating()
@@ -152,7 +139,7 @@ extension InfoVC: UISearchBarDelegate {
 }
 
 extension InfoVC: UITextViewDelegate {
-    
+    ///осуществление перехода по гиперссылке
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         let vc = SFSafariViewController(url: URL)
         present(vc, animated: true)
