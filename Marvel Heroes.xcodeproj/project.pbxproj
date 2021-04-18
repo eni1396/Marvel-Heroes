@@ -12,7 +12,6 @@
 		CEE269C725EFC4A000309079 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE269C625EFC4A000309079 /* AppDelegate.swift */; };
 		CEE269C925EFC4A000309079 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE269C825EFC4A000309079 /* SceneDelegate.swift */; };
 		CEE269CE25EFC4A000309079 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEE269CC25EFC4A000309079 /* Main.storyboard */; };
-		CEE269D125EFC4A000309079 /* Marvel_Heroes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CEE269CF25EFC4A000309079 /* Marvel_Heroes.xcdatamodeld */; };
 		CEE269D325EFC4A500309079 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEE269D225EFC4A500309079 /* Assets.xcassets */; };
 		CEE269D625EFC4A500309079 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEE269D425EFC4A500309079 /* LaunchScreen.storyboard */; };
 		CEE269E325EFF60A00309079 /* CustomHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE269E225EFF60A00309079 /* CustomHeader.swift */; };
@@ -33,7 +32,6 @@
 		CEE269C625EFC4A000309079 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEE269C825EFC4A000309079 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CEE269CD25EFC4A000309079 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		CEE269D025EFC4A000309079 /* Marvel_Heroes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Marvel_Heroes.xcdatamodel; sourceTree = "<group>"; };
 		CEE269D225EFC4A500309079 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEE269D525EFC4A500309079 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CEE269D725EFC4A500309079 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -70,6 +68,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		CE5E403D262CC6D700E370DF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CEE269E225EFF60A00309079 /* CustomHeader.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		CEE269BA25EFC4A000309079 = {
 			isa = PBXGroup;
 			children = (
@@ -93,7 +99,7 @@
 				CEE269EC25F0348800309079 /* Constants.swift */,
 				CEE269C625EFC4A000309079 /* AppDelegate.swift */,
 				CEE269C825EFC4A000309079 /* SceneDelegate.swift */,
-				CEE269E225EFF60A00309079 /* CustomHeader.swift */,
+				CE5E403D262CC6D700E370DF /* Views */,
 				CE51F0BA26172BB100A2A0FB /* Models */,
 				CEE269FB25F1284C00309079 /* Network */,
 				CEE26A0925F1884F00309079 /* Controllers */,
@@ -101,7 +107,6 @@
 				CEE269CC25EFC4A000309079 /* Main.storyboard */,
 				CEE269D225EFC4A500309079 /* Assets.xcassets */,
 				CEE269D725EFC4A500309079 /* Info.plist */,
-				CEE269CF25EFC4A000309079 /* Marvel_Heroes.xcdatamodeld */,
 			);
 			path = "Marvel Heroes";
 			sourceTree = "<group>";
@@ -202,7 +207,6 @@
 				CEE26A0725F1862A00309079 /* MainVC.swift in Sources */,
 				CEE26A0225F17A4800309079 /* InfoVC.swift in Sources */,
 				CEE269F125F0384900309079 /* CurrentHero.swift in Sources */,
-				CEE269D125EFC4A000309079 /* Marvel_Heroes.xcdatamodeld in Sources */,
 				CE80EB9A2604C99000385960 /* CurrentCreator.swift in Sources */,
 				CEE269C925EFC4A000309079 /* SceneDelegate.swift in Sources */,
 				CE51F0BC26172BF800A2A0FB /* RequiredInfo.swift in Sources */,
@@ -409,19 +413,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		CEE269CF25EFC4A000309079 /* Marvel_Heroes.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				CEE269D025EFC4A000309079 /* Marvel_Heroes.xcdatamodel */,
-			);
-			currentVersion = CEE269D025EFC4A000309079 /* Marvel_Heroes.xcdatamodel */;
-			path = Marvel_Heroes.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = CEE269BB25EFC4A000309079 /* Project object */;
 }

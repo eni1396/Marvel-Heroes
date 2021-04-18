@@ -7,6 +7,7 @@
 
 import Foundation
 
+///Получение данных из сети по запросу
 class NetworkManager {
     private var urlString = ""
     

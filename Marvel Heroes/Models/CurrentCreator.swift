@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - Root
+///Модель для создателей комиксов
 struct CurrentCreator: Codable {
     let data: DataCreator
 }

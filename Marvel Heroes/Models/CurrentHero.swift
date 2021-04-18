@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+///Модель для персонажей
 struct CurrentHero: Codable {
     let data: DataClass
 }

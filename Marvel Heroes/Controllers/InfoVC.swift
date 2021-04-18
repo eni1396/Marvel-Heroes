@@ -9,7 +9,7 @@ import UIKit
 import SafariServices
 
 class InfoVC: UIViewController {
-    ///модель для VC
+    
     private var requiredInfo = RequiredInfo()
     
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
@@ -26,7 +26,7 @@ class InfoVC: UIViewController {
         setupUI()
         tapToHideKeyBoard()
     }
-    
+    //MARK:- Настройка UI элементов
     private func setupUI() {
         currentDescription.lineBreakMode = .byTruncatingTail
         currentAppearances.lineBreakMode = .byTruncatingTail
@@ -41,6 +41,7 @@ class InfoVC: UIViewController {
         searchField.delegate = self
     }
     
+    //MARK:- Обновление UI элементов
     private func refreshElements() {
         currentImage.image = nil
         currentName.text = nil
@@ -50,7 +51,7 @@ class InfoVC: UIViewController {
         requiredInfo = RequiredInfo()
     }
     
-    
+    //MARK:- Скрытие клавиатуры по тапу
     private func tapToHideKeyBoard() {
         let tap = UITapGestureRecognizer(target: view, action: #selector(view.endEditing))
         view.addGestureRecognizer(tap)
@@ -58,11 +59,13 @@ class InfoVC: UIViewController {
 }
 
 extension InfoVC: UISearchBarDelegate {
-    ///взаимодействие с поисковой строкой
+    
+    ///Взаимодействие с поисковой строкой
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.requiredInfo.searchText = searchText
         loadingIndicator.startAnimating()
         
+        //MARK:- Выполение запроса для первой ячейки из MainVC
         if navigationItem.title == cellNames[0] {
             DispatchQueue.global().async {
                 self.requiredInfo.getCharacters {
@@ -83,6 +86,7 @@ extension InfoVC: UISearchBarDelegate {
                 }
             }
             
+        //MARK:- Выполение запроса для второй ячейки из MainVC
         } else if navigationItem.title == cellNames[1] {
             DispatchQueue.global().async {
                 self.requiredInfo.getComics {
@@ -102,6 +106,7 @@ extension InfoVC: UISearchBarDelegate {
                 }
             }
             
+        //MARK:- Выполение запроса для третьей ячейки из MainVC
         } else if navigationItem.title == cellNames[2] {
             DispatchQueue.global().async {
                 self.requiredInfo.getCreators {
@@ -117,14 +122,14 @@ extension InfoVC: UISearchBarDelegate {
                 }
             }
         }
-        /// очищение интерфейса при полном удалении текста
+        /// Очищение интерфейса при полном удалении текста
         if searchBar.text == "" {
             refreshElements()
             shortInfoLabel.isHidden = true
             loadingIndicator.stopAnimating()
         }
     }
-    /// очищение интерфейса при нажатии кнопки Cancel
+    /// Очищение интерфейса при нажатии кнопки Cancel
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text? = ""
         refreshElements()
@@ -139,6 +144,7 @@ extension InfoVC: UISearchBarDelegate {
 }
 
 extension InfoVC: UITextViewDelegate {
+    
     ///осуществление перехода по гиперссылке
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         let vc = SFSafariViewController(url: URL)

@@ -7,6 +7,7 @@
 
 import Foundation
 
+///Модель для InfoVC
 class RequiredInfo {
     
     private let networkManager = NetworkManager()
@@ -22,9 +23,8 @@ class RequiredInfo {
     var requiredAppearances: String?
     var requiredAttibutedString: NSMutableAttributedString?
     
-    
+    ///Получение данных для персонажей
     func getCharacters(completion: @escaping () -> Void) {
-        
         networkManager.fetchGenericData(from: .characters, searchText: searchText ?? "") { (currentHero: CurrentHero) in
             self.heroes = currentHero.data.results
             for res in self.heroes {
@@ -47,7 +47,7 @@ class RequiredInfo {
             completion()
         }
     }
-    
+    ///Получение данных для комиксов
     func getComics(completion: @escaping () -> Void) {
         
         networkManager.fetchGenericData(from: .comics, searchText: searchText ?? "") { (currentComics: CurrentComics) in
@@ -66,7 +66,7 @@ class RequiredInfo {
             completion()
         }
     }
-    
+    ///Получение данных для создателей комиксов
     func getCreators(completion: @escaping () -> Void) {
         
         networkManager.fetchGenericData(from: .creators, searchText: searchText ?? "") { (currentCreator: CurrentCreator) in
